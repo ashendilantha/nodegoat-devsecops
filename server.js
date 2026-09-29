@@ -35,7 +35,7 @@ MongoClient.connect(db, (err, db) => {
     }
     console.log(`Connected to the database`);
 
-    /*
+    
     // Fix for A5 - Security MisConfig
     // TODO: Review the rest of helmet options, like "xssFilter"
     // Remove default x-powered-by response header
@@ -53,16 +53,9 @@ MongoClient.connect(db, (err, db) => {
     // Allow communication only on HTTPS
     app.use(helmet.hsts());
 
-    // TODO: Add another vuln: https://github.com/helmetjs/helmet/issues/26
-    // Enable XSS filter in IE (On by default)
-    // app.use(helmet.iexss());
-    // Now it should be used in hit way, but the README alerts that could be
-    // dangerous, like specified in the issue.
-    // app.use(helmet.xssFilter({ setOnOldIE: true }));
-
     // Forces browser to only use the Content-Type set in the response header instead of sniffing or guessing it
     app.use(nosniff());
-    */
+    
 
     // Adding/ remove HTTP Headers for security
     app.use(favicon(__dirname + "/app/assets/favicon.ico"));
@@ -75,21 +68,13 @@ MongoClient.connect(db, (err, db) => {
     }));
 
     // Enable session management using express middleware
-    app.use(session({
-        // genid: (req) => {
-        //    return genuuid() // use UUIDs for session IDs
-        //},
-        secret: cookieSecret,
-        // Both mandatory in Express v4
-        saveUninitialized: true,
-        resave: true
-        /*
+    app.use(express.session({
+            secret: config.cookieSecret,
+        
         // Fix for A5 - Security MisConfig
         // Use generic cookie name
         key: "sessionId",
-        */
-
-        /*
+        
         // Fix for A3 - XSS
         // TODO: Add "maxAge"
         cookie: {
@@ -97,7 +82,6 @@ MongoClient.connect(db, (err, db) => {
             // Remember to start an HTTPS server to get this working
             // secure: true
         }
-        */
 
     }));
 
@@ -135,10 +119,10 @@ MongoClient.connect(db, (err, db) => {
     swig.setDefaults({
         // Autoescape disabled
         autoescape: false
-        /*
+        
         // Fix for A3 - XSS, enable auto escaping
-        autoescape: true // default value
-        */
+        //autoescape: true // default value
+        
     });
 
     // Insecure HTTP connection
@@ -155,3 +139,5 @@ MongoClient.connect(db, (err, db) => {
     */
 
 });
+
+//test commit
