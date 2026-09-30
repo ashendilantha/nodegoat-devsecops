@@ -69,27 +69,18 @@ MongoClient.connect(db, (err, db) => {
 
     // Enable session management using express middleware
     app.use(express.session({
-            secret: config.cookieSecret,
-        
-        // Fix for A5 - Security MisConfig
-        // Use generic cookie name
-        key: "sessionId",
-        
-        // Fix for A3 - XSS
-        // TODO: Add "maxAge"
-        cookie: {
-            httpOnly: true
-            // Remember to start an HTTPS server to get this working
-            // secure: true
-        }
-
-    }));
+    secret: "s3Cur3",
+    cookie: {
+        httpOnly: true,
+        secure: true
+    }
+}));
 
     /*
     // Fix for A8 - CSRF
-    // Enable Express csrf protection
+    // Enable Express csrf protection - test
     app.use(csrf());
-    // Make csrf token available in templates
+    // Make csrf token available in templ
     app.use((req, res, next) => {
         res.locals.csrftoken = req.csrfToken();
         next();
@@ -118,10 +109,10 @@ MongoClient.connect(db, (err, db) => {
     // Template system setup
     swig.setDefaults({
         // Autoescape disabled
-        autoescape: false
+        //autoescape: false
         
         // Fix for A3 - XSS, enable auto escaping
-        //autoescape: true // default value
+        autoescape: true // default value
         
     });
 
