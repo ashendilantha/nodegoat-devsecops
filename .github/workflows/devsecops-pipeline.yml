@@ -75,7 +75,7 @@ jobs:
           name: semgrep-results
           path: semgrep-results.json
 
-      #dependency scaning - testing npm audit
+      #dependency scaning - testing npm audit (test)
       - name: Run npm Audit
         id: npm_audit
         run: |
@@ -116,7 +116,6 @@ jobs:
         with:
           name: npm-audit-results
           path: npm-audit-results.json
-
 
 
         #Secrets scaning
